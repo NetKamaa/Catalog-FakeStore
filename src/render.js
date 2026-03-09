@@ -1,18 +1,27 @@
-import { state } from "./state.js";
+import { getCategories, getFilteredProducts } from "./utils.js";
 
-const api_status = document.querySelector(".api-status");
-const catalog = document.querySelector(".catalog");
+export function render(state, elements) {
+  const mode = getViewMode(state);
 
-export function render() {
-  const mode = getViewMode();
+  renderStatus(mode, state.error, elements.api_status);
 
-  renderStatus(mode);
+  if (mode === "grid") {
+    const categories = getCategories(state.items);
 
-  if (mode === "grid") renderProducts();
+    renderCategories(categories, elements.change, state);
+
+    const filteredItems = getFilteredProducts(
+      state.items,
+      state.query,
+      state.category,
+    );
+
+    renderProducts(filteredItems, elements.catalog);
+  }
 }
 
-function renderProducts() {
-  catalog.innerHTML = state.items
+function renderProducts(items, catalog) {
+  catalog.innerHTML = items
     .map(
       (item) =>
         `<div class = "card"><img src="${item.image}" alt="${item.title}"><h3>${item.title}</h3><p>${item.price}</p><p>${item.description}</p></div>`,
@@ -20,7 +29,7 @@ function renderProducts() {
     .join("");
 }
 
-function getViewMode() {
+function getViewMode(state) {
   if (state.status === "loading") return "loading";
   if (state.status === "error") return "error";
   if (state.items.length === 0) return "empty";
@@ -28,14 +37,14 @@ function getViewMode() {
   return "grid";
 }
 
-function renderStatus(mode) {
+function renderStatus(mode, error, api_status) {
   switch (mode) {
     case "loading":
       api_status.innerHTML = "Loading...";
       break;
 
     case "error":
-      api_status.innerHTML = `Error: ${state.error}`;
+      api_status.innerHTML = `Error: ${error}`;
       break;
 
     case "empty":
@@ -46,4 +55,14 @@ function renderStatus(mode) {
       api_status.innerHTML = "";
       break;
   }
+}
+
+function renderCategories(categories, change, state) {
+  change.innerHTML =
+    `<option value="all">All categories</option>` +
+    categories
+      .map((category) => `<option value="${category}">${category}</option>`)
+      .join("");
+
+  change.value = state.category;
 }

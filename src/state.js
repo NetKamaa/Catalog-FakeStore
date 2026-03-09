@@ -4,6 +4,8 @@ export const state = {
   items: [],
   status: "idle",
   error: "",
+  query: "",
+  category: "all",
 };
 
 export async function loadProducts() {

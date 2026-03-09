@@ -13,6 +13,7 @@ export async function loadAPI() {
       image: item.image,
       price: item.price,
       description: item.description,
+      category: item.category,
     };
   });
   return fullData;
