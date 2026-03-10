@@ -6,6 +6,8 @@ export const state = {
   error: "",
   query: "",
   category: "all",
+  pageSize: 8,
+  visibleCount: 8,
 };
 
 export async function loadProducts() {

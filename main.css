@@ -21,7 +21,7 @@ button:focus-visible {
 
 .card {
   padding: 16px;
-  border: 1px solid #7777;
+  border: 1px solid #777777;
   border-radius: 10px;
   background: white;
 }
@@ -41,6 +41,28 @@ button:focus-visible {
 .card p:last-child {
   font-style: italic;
   text-decoration: none;
+}
+
+.load-more-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+.load-more {
+  padding: 10px;
+  border: 1px solid #777777;
+  font-size: 16px;
+  cursor: pointer;
+}
+.load-more:hover {
+  background: #f3f3f3;
+}
+.load-more:active {
+  transform: scale(1);
+}
+.load-more:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .controls {

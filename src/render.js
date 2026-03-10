@@ -1,4 +1,8 @@
-import { getCategories, getFilteredProducts } from "./utils.js";
+import {
+  getCategories,
+  getFilteredProducts,
+  getPagedProducts,
+} from "./utils.js";
 
 export function render(state, elements) {
   const mode = getViewMode(state);
@@ -16,7 +20,12 @@ export function render(state, elements) {
       state.category,
     );
 
-    renderProducts(filteredItems, elements.catalog);
+    const pagedItems = getPagedProducts(filteredItems, state.visibleCount);
+
+    const loadMore = pagedItems.length < filteredItems.length;
+    elements.btnLoadMore.disabled = !loadMore;
+
+    renderProducts(pagedItems, elements.catalog);
   }
 }
 

@@ -14,3 +14,8 @@ export function getCategories(items) {
   const set = new Set(categories);
   return [...set];
 }
+
+export function getPagedProducts(filteredItems, visibleCount) {
+  const pagedItems = filteredItems.slice(0, visibleCount);
+  return pagedItems;
+}
