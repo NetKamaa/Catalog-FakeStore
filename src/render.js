@@ -92,7 +92,7 @@ function renderModal(state) {
 
   const modalHTML = `
     <div class="modal-overlay">
-      <div class="modal">
+      <div class="modal" tabindex ="-1">
         <button class="modal-close">x</button>
 
         <img src="${product.image}" alt="${product.title}">
@@ -109,6 +109,10 @@ function renderModal(state) {
   `;
 
   document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+  const modal = document.querySelector(".modal");
+  if (modal) modal.focus();
+
   const scrollBarWidth =
     window.innerWidth - document.documentElement.clientWidth;
 

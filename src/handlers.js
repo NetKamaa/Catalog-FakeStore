@@ -1,6 +1,10 @@
+import { saveFavorites } from "./state.js";
+
 let debounceTimer;
 
 export function setupSearchHandler(state, elements, render) {
+  let lastActiveElement = null;
+
   elements.input_query.addEventListener("input", () => {
     clearTimeout(debounceTimer);
 
@@ -47,8 +51,6 @@ export function setupSearchHandler(state, elements, render) {
     } else {
       openModal(id);
     }
-
-    render(state, elements);
   });
 
   function toggleFavorite(id) {
@@ -57,11 +59,19 @@ export function setupSearchHandler(state, elements, render) {
     } else {
       state.favorites.add(id);
     }
+
+    saveFavorites(state.favorites);
     render(state, elements);
   }
 
   function openModal(id) {
+    lastActiveElement = document.activeElement;
+
     state.modalProductId = id;
+
+    document.addEventListener("keydown", handleEsc);
+
+    render(state, elements);
   }
 
   document.addEventListener("click", (e) => {
@@ -69,10 +79,28 @@ export function setupSearchHandler(state, elements, render) {
       e.target.closest(".modal-close") ||
       e.target.classList.contains("modal-overlay")
     ) {
-      state.modalProductId = null;
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-      render(state, elements);
+      closeModal();
     }
   });
+
+  function closeModal() {
+    state.modalProductId = null;
+
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+
+    document.removeEventListener("keydown", handleEsc);
+
+    render(state, elements);
+
+    if (lastActiveElement) {
+      lastActiveElement.focus();
+    }
+  }
+
+  function handleEsc(e) {
+    if (e.key === "Escape") {
+      closeModal();
+    }
+  }
 }

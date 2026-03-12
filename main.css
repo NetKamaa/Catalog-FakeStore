@@ -127,6 +127,9 @@ button:focus-visible {
   border: none;
   background: transparent;
   cursor: pointer;
+
+  outline: 2px solid #5900ad;
+  outline-offset: 4px;
 }
 .modal img {
   width: 100%;
