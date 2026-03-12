@@ -4,6 +4,7 @@ const change = document.querySelector(".change");
 const input_query = document.querySelector(".input-query");
 const btnReset = document.querySelector(".reset");
 const btnLoadMore = document.querySelector(".load-more");
+const favoriteCount = document.querySelector(".favorite-count");
 
 export const elements = {
   api_status,
@@ -12,4 +13,5 @@ export const elements = {
   input_query,
   btnReset,
   btnLoadMore,
+  favoriteCount,
 };

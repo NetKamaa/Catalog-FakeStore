@@ -34,4 +34,45 @@ export function setupSearchHandler(state, elements, render) {
 
     render(state, elements);
   });
+
+  elements.catalog.addEventListener("click", (e) => {
+    const card = e.target.closest(".card");
+
+    if (!card) return;
+
+    const id = Number(card.dataset.id);
+
+    if (e.target.closest(".favorite")) {
+      toggleFavorite(id);
+    } else {
+      openModal(id);
+    }
+
+    render(state, elements);
+  });
+
+  function toggleFavorite(id) {
+    if (state.favorites.has(id)) {
+      state.favorites.delete(id);
+    } else {
+      state.favorites.add(id);
+    }
+    render(state, elements);
+  }
+
+  function openModal(id) {
+    state.modalProductId = id;
+  }
+
+  document.addEventListener("click", (e) => {
+    if (
+      e.target.closest(".modal-close") ||
+      e.target.classList.contains("modal-overlay")
+    ) {
+      state.modalProductId = null;
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+      render(state, elements);
+    }
+  });
 }

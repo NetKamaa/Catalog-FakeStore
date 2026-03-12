@@ -8,6 +8,8 @@ export const state = {
   category: "all",
   pageSize: 8,
   visibleCount: 8,
+  favorites: new Set(),
+  modalProductId: null,
 };
 
 export async function loadProducts() {

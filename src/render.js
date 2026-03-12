@@ -14,6 +14,8 @@ export function render(state, elements) {
 
     renderCategories(categories, elements.change, state);
 
+    elements.favoriteCount.textContent = `Favorites: ${state.favorites.size}`;
+
     const filteredItems = getFilteredProducts(
       state.items,
       state.query,
@@ -25,15 +27,17 @@ export function render(state, elements) {
     const loadMore = pagedItems.length < filteredItems.length;
     elements.btnLoadMore.disabled = !loadMore;
 
-    renderProducts(pagedItems, elements.catalog);
+    renderProducts(pagedItems, elements.catalog, state.favorites);
+
+    renderModal(state);
   }
 }
 
-function renderProducts(items, catalog) {
+function renderProducts(items, catalog, favorites) {
   catalog.innerHTML = items
     .map(
       (item) =>
-        `<div class = "card"><img src="${item.image}" alt="${item.title}"><h3>${item.title}</h3><p>${item.price}</p><p>${item.description}</p></div>`,
+        `<div class ="card" data-id ="${item.id}"><button class ="favorite ${favorites.has(item.id) ? "active" : ""}">♥</button><img src="${item.image}" alt="${item.title}"><h3>${item.title}</h3><p>${item.price}</p><p>${item.description}</p></div>`,
     )
     .join("");
 }
@@ -74,4 +78,40 @@ function renderCategories(categories, change, state) {
       .join("");
 
   change.value = state.category;
+}
+
+function renderModal(state) {
+  const oldModal = document.querySelector(".modal-overlay");
+  if (oldModal) oldModal.remove();
+
+  if (state.modalProductId === null) return;
+
+  const product = state.items.find((item) => item.id === state.modalProductId);
+
+  if (!product) return;
+
+  const modalHTML = `
+    <div class="modal-overlay">
+      <div class="modal">
+        <button class="modal-close">x</button>
+
+        <img src="${product.image}" alt="${product.title}">
+
+        <h2>${product.title}</h2>
+
+        <p>Price: ${product.price}</p>
+
+        <p>${product.description}</p>
+
+        <p>Category: ${product.category}</p>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+  const scrollBarWidth =
+    window.innerWidth - document.documentElement.clientWidth;
+
+  document.body.style.overflow = "hidden";
+  document.body.style.paddingRight = scrollBarWidth + "px";
 }
