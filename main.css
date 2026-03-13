@@ -1,3 +1,11 @@
+:root {
+  --main-color: #a35efe;
+  --border-color: #000000;
+  --bg-color: #ffffff;
+
+  --font-md: 16px;
+}
+
 body {
   margin: 0;
   font-family: sans-serif;
@@ -6,7 +14,43 @@ body {
 input:focus-visible,
 select:focus-visible,
 button:focus-visible {
-  outline: 2px solid #5900ad;
+  outline: 2px solid var(--main-color);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+  padding: 20px 20px 0;
+}
+.favorite-count {
+  text-align: center;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.controls input,
+.controls select {
+  padding: 10px;
+  font-size: var(--font-md);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+}
+.controls button {
+  font-size: var(--font-md);
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+}
+.controls button:active {
+  border: 1px solid var(--main-color);
+}
+.api-status:empty {
+  display: none;
 }
 
 .page {
@@ -20,10 +64,10 @@ button:focus-visible {
 }
 
 .card {
-  padding: 16px;
-  border: 1px solid #777777;
+  padding: var(--font-md);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
-  background: white;
+  background: var(--bg-color);
   position: relative;
 }
 .card img {
@@ -42,58 +86,42 @@ button:focus-visible {
   overflow: hidden;
   line-clamp: 2;
 }
-.card p {
-  text-decoration: underline;
-}
 .card p:last-child {
   font-style: italic;
   text-decoration: none;
 }
 .favorite {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
   position: absolute;
   top: 10px;
   right: 10px;
 }
 .favorite.active {
-  color: red;
+  color: var(--main-color);
 }
 
 .load-more-wrapper {
   display: flex;
   justify-content: center;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 .load-more {
-  padding: 10px;
-  border: 1px solid #777777;
-  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: var(--font-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  font-size: var(--font-md);
   cursor: pointer;
-}
-.load-more:hover {
-  background: #f3f3f3;
 }
 .load-more:active {
   transform: scale(1);
+  border: 1px solid var(--main-color);
 }
 .load-more:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.controls {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.controls input,
-.controls select,
-.controls button {
-  padding: 10px;
-  font-size: 16px;
-}
-.controls button {
-  cursor: pointer;
 }
 
 .modal-overlay {
@@ -112,7 +140,7 @@ button:focus-visible {
 .modal {
   position: relative;
 
-  background: white;
+  background: var(--bg-color);
   border-radius: 12px;
 
   padding: 24px;
@@ -134,8 +162,7 @@ button:focus-visible {
   background: transparent;
   cursor: pointer;
 
-  outline: 2px solid #5900ad;
-  outline-offset: 4px;
+  color: var(--main-color);
 }
 .modal img {
   width: 100%;

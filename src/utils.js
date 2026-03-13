@@ -1,11 +1,14 @@
-export function getFilteredProducts(items, query, category) {
+export function getFilteredProducts(items, query, category, favorites) {
   return items
     .filter((item) => item.title.toLowerCase().includes(query.toLowerCase()))
     .filter((item) => {
       if (category === "all") return true;
-      else {
-        return item.category === category;
+
+      if (category === "favorites") {
+        return favorites.has(item.id);
       }
+
+      return item.category === category;
     });
 }
 

@@ -4,20 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>catalog-fakestore</title>
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="./main.css" />
   </head>
   <body>
     <header>
-      <p class="api-status"></p>
-      <p class="favorite-count"></p>
-      <div class="controls">
-        <input
-          class="input-query"
-          type="text"
-          placeholder="Enter the product name"
-        />
-        <select class="change"></select>
-        <button class="reset">Reset</button>
+      <div class="header">
+        <p class="api-status"></p>
+        <p class="favorite-count"></p>
+        <div class="controls">
+          <input
+            class="input-query"
+            type="text"
+            placeholder="Enter the product name"
+          />
+          <select class="change"></select>
+          <button class="reset">Reset</button>
+        </div>
       </div>
     </header>
     <main class="page">
@@ -26,6 +28,6 @@
         <button class="load-more">Load more</button>
       </div>
     </main>
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>

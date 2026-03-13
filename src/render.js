@@ -14,12 +14,13 @@ export function render(state, elements) {
 
     renderCategories(categories, elements.change, state);
 
-    elements.favoriteCount.textContent = `Favorites: ${state.favorites.size}`;
+    elements.favoriteCount.textContent = `Your favorites products: ${state.favorites.size}`;
 
     const filteredItems = getFilteredProducts(
       state.items,
       state.query,
       state.category,
+      state.favorites,
     );
 
     const pagedItems = getPagedProducts(filteredItems, state.visibleCount);
@@ -37,7 +38,7 @@ function renderProducts(items, catalog, favorites) {
   catalog.innerHTML = items
     .map(
       (item) =>
-        `<div class ="card" data-id ="${item.id}"><button class ="favorite ${favorites.has(item.id) ? "active" : ""}">♥</button><img src="${item.image || "placeholder.png"}" alt="${item.title || "No image"}"><h3>${item.title}</h3><p>${item.price}</p><p>${item.description}</p></div>`,
+        `<div class ="card" data-id ="${item.id}"><button class ="favorite ${favorites.has(item.id) ? "active" : ""}">♥</button><img src="${item.image || "placeholder.png"}" alt="${item.title || "No image"}"><h3>${item.title}</h3><p>Price: ${item.price} $</p><p>${item.description}</p></div>`,
     )
     .join("");
 }
@@ -72,7 +73,7 @@ function renderStatus(mode, error, api_status) {
 
 function renderCategories(categories, change, state) {
   change.innerHTML =
-    `<option value="all">All categories</option>` +
+    `<option value="all">All categories</option><option value="favorites">Favorites</option>` +
     categories
       .map((category) => `<option value="${category}">${category}</option>`)
       .join("");
@@ -99,7 +100,7 @@ function renderModal(state) {
 
         <h2>${product.title}</h2>
 
-        <p>Price: ${product.price}</p>
+        <p>Price: ${product.price} $</p>
 
         <p>${product.description}</p>
 
