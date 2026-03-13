@@ -37,7 +37,7 @@ function renderProducts(items, catalog, favorites) {
   catalog.innerHTML = items
     .map(
       (item) =>
-        `<div class ="card" data-id ="${item.id}"><button class ="favorite ${favorites.has(item.id) ? "active" : ""}">♥</button><img src="${item.image}" alt="${item.title}"><h3>${item.title}</h3><p>${item.price}</p><p>${item.description}</p></div>`,
+        `<div class ="card" data-id ="${item.id}"><button class ="favorite ${favorites.has(item.id) ? "active" : ""}">♥</button><img src="${item.image || "placeholder.png"}" alt="${item.title || "No image"}"><h3>${item.title}</h3><p>${item.price}</p><p>${item.description}</p></div>`,
     )
     .join("");
 }

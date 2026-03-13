@@ -11,6 +11,9 @@ export function setupSearchHandler(state, elements, render) {
     debounceTimer = setTimeout(() => {
       state.query = elements.input_query.value;
       state.visibleCount = state.pageSize;
+
+      state.modalProductId = null;
+
       render(state, elements);
     }, 300);
   });
@@ -18,6 +21,9 @@ export function setupSearchHandler(state, elements, render) {
   elements.change.addEventListener("change", () => {
     state.category = elements.change.value;
     state.visibleCount = state.pageSize;
+
+    state.modalProductId = null;
+
     render(state, elements);
   });
 
@@ -29,6 +35,8 @@ export function setupSearchHandler(state, elements, render) {
     elements.change.value = "all";
 
     state.visibleCount = state.pageSize;
+
+    state.modalProductId = null;
 
     render(state, elements);
   });

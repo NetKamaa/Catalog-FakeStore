@@ -8,12 +8,12 @@ export async function loadAPI() {
   const data = await response.json();
   const fullData = data.map((item) => {
     return {
-      id: item.id,
-      title: item.title,
-      image: item.image,
-      price: item.price,
-      description: item.description,
-      category: item.category,
+      id: item.id ?? crypto.randomUUID(),
+      title: item.title ?? "Untitled",
+      image: item.image ?? "",
+      price: item.price ?? "We are confirming the price",
+      description: item.description ?? "Will be here soon",
+      category: item.category ?? "We are confirming the category",
     };
   });
   return fullData;
